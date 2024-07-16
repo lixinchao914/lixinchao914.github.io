@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download Mock.js</title>
+</head>
+<body>
+<button id="downloadBtn">Download Mock.js</button>
+
+<script>
+document.getElementById('downloadBtn').addEventListener('click', function() {
+  fetch('assets/mock.js')
+    .then(response => response.blob())
+    .then(blob => {
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'mock.js';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    })
+    .catch(error => console.error('Error fetching the file:', error));
+});
+</script>
+</body>
+</html>
