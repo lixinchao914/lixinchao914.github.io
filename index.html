@@ -3,27 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Download Mock.js</title>
+  <title>下载页</title>
 </head>
 <body>
-<button id="downloadBtn">Download Mock.js</button>
+<button class="downloadBtn" onclick="downloadApp('大师兄影视 v3.3.6去广告修复版.apk')">大师兄影视 v3.3.6去广告修复版</button>
+<button class="downloadBtn" onclick="downloadApp('星芽免费短剧 v3.1.0.1 去广告.apk')">星芽免费短剧 v3.1.0.1 去广告</button>
 
 <script>
-document.getElementById('downloadBtn').addEventListener('click', function() {
-  fetch('assets/mock.js')
+const downloadApp = (fileName) => {
+  downloadFn(fileName)
+}
+const downloadFn = (fileName) => {
+  fetch(`assets/${fileName}`)
     .then(response => response.blob())
     .then(blob => {
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = 'mock.js';
+      link.download = fileName;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
     })
-    .catch(error => console.error('Error fetching the file:', error));
-});
+    .catch(error => {
+      alert('下载失败')
+    });
+}
 </script>
 </body>
 </html>
