@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>下载页</title>
+  <title>下载</title>
 </head>
 <body>
 <button class="downloadBtn" onclick="downloadApp('剧喵影视_3.0.6纯净版.apk')">剧喵影视_3.0.6纯净版.apk</button>
@@ -14,21 +14,13 @@ const downloadApp = (fileName) => {
   downloadFn(fileName)
 }
 const downloadFn = (fileName) => {
-  fetch(`assets/${fileName}`)
-    .then(response => response.blob())
-    .then(blob => {
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = fileName;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
-    })
-    .catch(error => {
-      alert('下载失败')
-    });
+  let downloadUrl = `assets/${fileName}`
+  const link = document.createElement('a');
+  link.href = downloadUrl;
+  link.download = fileName;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }
 </script>
 </body>
